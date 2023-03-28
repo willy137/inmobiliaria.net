@@ -1,0 +1,55 @@
+@model mvc.Models.Propietario
+<link rel="stylesheet" href="/css/prop/details.css">
+@{
+    ViewData["Title"] = "detalle";
+}
+<div class="conte">
+    <h1>detalle</h1>
+
+    <div>
+        <h4>Propietario</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Id_prop)ietario
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Id_prop)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Dni)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Dni)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { Model.Id_prop}) |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

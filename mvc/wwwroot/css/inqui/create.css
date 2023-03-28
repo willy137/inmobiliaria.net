@@ -1,0 +1,31 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Josefin+Sans:ital,wght@0,500;1,300&display=swap');
+body{
+    background: -webkit-linear-gradient(90deg, rgb(30, 138, 120) 30%, rgb(82, 28, 107) 90%);
+    background: -moz-linear-gradient(90deg, rgb(30, 138, 120) 30%,  rgb(82, 28, 107) 90%);
+    background: -ms-linear-gradient(90deg, rgb(30, 138, 120) 30%, rgb(82, 28, 107) 90%);
+    background: -o-linear-gradient(90deg,  rgb(30, 138, 120) 30%,  rgb(82, 28, 107) 90%);
+    background: linear-gradient(90deg,  rgb(30, 138, 120) 30%, rgb(82, 28, 107) 90%);
+}
+.row{
+    width: 700px;
+}
+.form-group>label{
+    font-family: 'DM Serif Display', serif;
+    margin-bottom: 10px;
+}
+.form-group2>input{
+    background-color: #b041be;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid purple;
+}
+a{
+    color: #31ccf3;
+}
+h1{
+    font-family: 'DM Serif Display', serif;
+}
+h4{
+    font-family: 'DM Serif Display', serif;
+}

@@ -1,0 +1,46 @@
+@model IEnumerable<mvc.Models.Propietario>
+<link rel="stylesheet" href="./css/prop/index.css">
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Propietarios</h1>
+
+<p>
+    <a asp-action="Create">Registra Propietario</a>
+</p>
+<table class="table" id="tabla">
+    <thead>
+        <tr >
+            <th class="titulos">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { item.Id_prop }) |
+                @Html.ActionLink("Details", "Details", new { item.Id_prop}) |
+                @Html.ActionLink("Delete", "Delete", new { item.Id_prop })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

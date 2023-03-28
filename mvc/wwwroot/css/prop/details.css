@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=DM+Serif+Display:ital@1&family=Josefin+Sans:ital,wght@0,500;1,300&display=swap');
+body{
+    background: linear-gradient(to right, #13803ba1 45%, #599712af);  
+
+}
+a{
+    color: #ffffff;
+}
+.conte{
+    font-family: 'Cinzel', serif;
+}
