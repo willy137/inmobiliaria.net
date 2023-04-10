@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2023 a las 02:09:59
+-- Tiempo de generación: 10-04-2023 a las 03:02:45
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -99,12 +99,19 @@ INSERT INTO `inquilino` (`InquiId`, `Nombre`, `Apellido`, `DNI`, `Domicilio`, `T
 --
 
 CREATE TABLE `pago` (
-  `Id_pago` int(11) NOT NULL,
-  `Id_contrato` int(11) NOT NULL,
-  `Numero_pago` bigint(20) NOT NULL,
-  `Fecha_pago` datetime NOT NULL,
-  `Importe` double NOT NULL
+  `PagoId` int(11) NOT NULL,
+  `ContratoId` int(11) NOT NULL,
+  `NumeroPago` bigint(20) NOT NULL,
+  `FechaPago` datetime NOT NULL,
+  `Importe` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `pago`
+--
+
+INSERT INTO `pago` (`PagoId`, `ContratoId`, `NumeroPago`, `FechaPago`, `Importe`) VALUES
+(1, 3, 2, '2023-04-11 21:31:07', '15200');
 
 -- --------------------------------------------------------
 
@@ -128,6 +135,21 @@ CREATE TABLE `propietario` (
 INSERT INTO `propietario` (`PropId`, `Nombre`, `Apellido`, `Direccion`, `Telefono`, `Dni`) VALUES
 (16, 'Pepito', 'Elmes', 'Barrio Liberta 1432', '2664131342', '36145689'),
 (17, 'Maria', 'Algarrobo', 'Mitre 854', '2665789523', '40123486');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `UsuarioId` int(11) NOT NULL,
+  `Nombre` varchar(200) NOT NULL,
+  `Apellido` varchar(200) NOT NULL,
+  `Password` varchar(2000) NOT NULL,
+  `Correo` varchar(1000) NOT NULL,
+  `Rol` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -158,8 +180,8 @@ ALTER TABLE `inquilino`
 -- Indices de la tabla `pago`
 --
 ALTER TABLE `pago`
-  ADD PRIMARY KEY (`Id_pago`),
-  ADD KEY `Id_contrato` (`Id_contrato`);
+  ADD PRIMARY KEY (`PagoId`),
+  ADD KEY `Id_contrato` (`ContratoId`);
 
 --
 -- Indices de la tabla `propietario`
@@ -167,6 +189,12 @@ ALTER TABLE `pago`
 ALTER TABLE `propietario`
   ADD PRIMARY KEY (`PropId`),
   ADD UNIQUE KEY `Dni` (`Dni`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`UsuarioId`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -194,13 +222,19 @@ ALTER TABLE `inquilino`
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `Id_pago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PagoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `propietario`
 --
 ALTER TABLE `propietario`
   MODIFY `PropId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -223,7 +257,7 @@ ALTER TABLE `inmueble`
 -- Filtros para la tabla `pago`
 --
 ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`Id_contrato`) REFERENCES `contrato` (`ContratoId`);
+  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`ContratoId`) REFERENCES `contrato` (`ContratoId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
