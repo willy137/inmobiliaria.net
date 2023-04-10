@@ -12,7 +12,7 @@ public class RepositorioInquilino : Inquilino
     public List<Inquilino> GetInquilino(){
         List<Inquilino> inquilinos= new List<Inquilino>(){};
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
-            var query=@"SELECT id_inqui, nombre, apellido, dni, domicilio,telefono FROM inquilino";
+            var query=@"SELECT InquiId, nombre, apellido, dni, domicilio,telefono FROM inquilino";
             using(var command= new MySqlCommand(query,connetion))
             {
                 connetion.Open();
@@ -21,7 +21,7 @@ public class RepositorioInquilino : Inquilino
                     while(reader.Read()){
                         Inquilino inquilino = new Inquilino
                         {
-                            Id_inqui=reader.GetInt32(nameof(Inquilino.Id_inqui)),
+                            InquiId=reader.GetInt32(nameof(Inquilino.InquiId)),
                             Nombre=reader.GetString(nameof(Inquilino.Nombre)),
                             Apellido=reader.GetString(nameof(Inquilino.Apellido)),
                             Dni=reader.GetString(nameof(Inquilino.Dni)),
@@ -41,14 +41,14 @@ public class RepositorioInquilino : Inquilino
     public Inquilino ObtenerInqui(int id){
         Inquilino inqui= new Inquilino();
             using (MySqlConnection connetion = new MySqlConnection(connectionString)){
-                var query=@"SELECT id_inqui, nombre, apellido, dni, domicilio,telefono FROM inquilino WHERE id_inqui=@id;";
+                var query=@"SELECT InquiId, nombre, apellido, dni, domicilio,telefono FROM inquilino WHERE InquiId=@id;";
                 using(var command= new MySqlCommand(query,connetion)){
                     command.Parameters.AddWithValue("@id",id);
                     connetion.Open();
                     var reader = command.ExecuteReader();
                     if(reader.Read()){
                         inqui =new Inquilino{
-                        Id_inqui=reader.GetInt32(nameof(Inquilino.Id_inqui)),
+                        InquiId=reader.GetInt32(nameof(Inquilino.InquiId)),
                         Nombre = reader.GetString("Nombre"),
                         Apellido = reader.GetString("Apellido"),
                         Dni = reader.GetString("Dni"),
@@ -76,7 +76,7 @@ public class RepositorioInquilino : Inquilino
                 command.Parameters.AddWithValue("@telefono",inqui.Telefono);
                 connetion.Open();
                 resul= Convert.ToInt32(command.ExecuteScalar());
-                inqui.Id_inqui=resul;
+                inqui.InquiId=resul;
                 connetion.Close();
             }
         }
@@ -87,14 +87,14 @@ public class RepositorioInquilino : Inquilino
         int resul=-1;
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             string query= @"UPDATE inquilino
-             SET Nombre=@nombre ,Apellido=@apellido,Dni=@dni,Domicilio=@domicilio,Telefono=@telefono WHERE Id_inqui=@id";
+             SET Nombre=@nombre ,Apellido=@apellido,Dni=@dni,Domicilio=@domicilio,Telefono=@telefono WHERE InquiId=@id";
             using(var command= new MySqlCommand(query,connetion)){
                 command.Parameters.AddWithValue("@nombre",inqui.Nombre);
                 command.Parameters.AddWithValue("@apellido",inqui.Apellido);
                 command.Parameters.AddWithValue("@dni",inqui.Dni);
                 command.Parameters.AddWithValue("@domicilio",inqui.Domicilio);
                 command.Parameters.AddWithValue("@telefono",inqui.Telefono);
-                command.Parameters.AddWithValue("@id",inqui.Id_inqui);
+                command.Parameters.AddWithValue("@id",inqui.InquiId);
                 connetion.Open();
                 resul= command.ExecuteNonQuery();
                 connetion.Close();
@@ -105,7 +105,7 @@ public class RepositorioInquilino : Inquilino
     public int Delete(int id){
         int res=-1;
         using(MySqlConnection connection= new MySqlConnection(connectionString)){
-            string query= @"DELETE FROM inquilino WHERE Id_inqui=@id;";
+            string query= @"DELETE FROM inquilino WHERE InquiId=@id;";
             using(var command= new MySqlCommand(query,connection)){
                 command.Parameters.AddWithValue("@id",id);
                 connection.Open();

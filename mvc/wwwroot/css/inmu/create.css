@@ -1,0 +1,48 @@
+body{
+    background: -webkit-linear-gradient(90deg, rgb(126, 77, 148) 30%, rgb(138, 118, 29) 90%);
+    background: -moz-linear-gradient(90deg,  rgb(126, 77, 148) 30%, rgb(138, 118, 29) 90%);
+    background: -ms-linear-gradient(90deg,  rgb(126, 77, 148) 30%, rgb(138, 118, 29) 90%);
+    background: -o-linear-gradient(90deg,   rgb(126, 77, 148) 30%, rgb(138, 118, 29) 90%);
+    background: linear-gradient(90deg,  rgb(126, 77, 148) 30%, rgb(138, 118, 29) 90%);
+}
+
+#busca{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#busca>button{
+    margin-top: 20px;
+}
+#busca>input{
+    margin-top: 20px;
+}
+.row{
+    width: 700px;
+}
+.form-group>label{
+    font-family: 'DM Serif Display', serif;
+    margin-bottom: 10px;
+}
+.form-group2>input{
+    background-color: #b041be;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid purple;
+}
+a{
+    color: #31ccf3;
+}
+h1{
+    font-family: 'DM Serif Display', serif;
+}
+h4{
+    font-family: 'DM Serif Display', serif;
+}
+#boton{
+    margin-top: 10px;
+}
+#btn1>a{
+    text-decoration: none;
+    color:#ffff;
+}

@@ -1,0 +1,65 @@
+@model IEnumerable<mvc.Models.Inmueble>
+<link rel="stylesheet" href="/css/inmu/index.css">
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Inmuebles</h1>
+
+<p>
+    <a asp-action="Create">Registrar Inmuebles</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsoComercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoLocal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadAmbientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duenio)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsoComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoLocal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadAmbientes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td> 
+            <td>
+                @(item.Duenio.Nombre+" "+item.Duenio.Apellido)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {item.InmuId}) |
+                @Html.ActionLink("Details", "Details", new { item.InmuId}) |
+                @Html.ActionLink("Delete", "Delete", new { item.InmuId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

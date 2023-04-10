@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=DM+Serif+Display:ital@1&family=Josefin+Sans:ital,wght@0,500;1,300&display=swap');
+body{
+    background: radial-gradient(#9383b9, #7040be);    
+}
+.form-group2>input{
+    background-color: #b041be;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid purple;
+}   
+a{
+    color: #31ccf3;
+}
+.row{
+    width: 700px;
+}
+.form-group>label{
+    font-family: 'Cinzel', serif;
+    margin-bottom: 10px;
+}
+h1{
+    font-family: 'Cinzel', serif;
+}
+h4{
+    font-family: 'Cinzel', serif;
+}
+#volver{
+    color: #ffff;
+}
+#volver:hover{
+    color:#0e197aab;
+}

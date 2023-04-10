@@ -1,0 +1,58 @@
+@model IEnumerable<mvc.Models.Contrato>
+<link rel="stylesheet" href="/css/contra/index.css">
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Contratos</h1>
+
+<p>
+    <a asp-action="Create">Registrar Contrato</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model =>model.inmueble.Direccion) inmueble
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.inquilino)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaFinal)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.inmueble.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.inquilino.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFinal)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { ContratoId=item.ContratoId})" class="edit" >
+                   <img src="@Url.Content("~/img/editar.png")" alt="Editar"/>
+                </a>
+                <a href="@Url.Action("Details", new { ContratoId =item.ContratoId})"  class="deta" >
+                    <img src="@Url.Content("~/img/detalle.png")" alt="Detalles"/>
+                </a>
+                <a href="@Url.Action("Delete", new { ContratoId =item.ContratoId})" class="elim" />
+                    <img src="@Url.Content("~/img/elim.png")" alt="Eliminar" >
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

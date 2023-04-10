@@ -1,0 +1,73 @@
+@model mvc.Models.Contrato
+<link rel="stylesheet" href="/css/contra/create.css">
+<script src="/js/contrato/create.js" defer></script>
+@{
+    ViewData["Title"] = "Create";
+    var inquilinos= (List<Inquilino>)ViewBag.inquis;
+    var inmuebles= (List<Inmueble>)ViewBag.Inmuebles;
+}
+
+<h1>Registrar</h1>
+
+<h4>Contrato</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InmuId" class="control-label"></label>
+                <input asp-for="InmuId" class="form-control" readonly/>
+                <span asp-validation-for="InmuId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+				<label class="control-label">Inmueble</label>
+				<select class="form-control" name="InmuId" onchange="cambiaIdInmu()" id="idnmu">
+					@foreach (var item in inmuebles)
+					{
+						<option value="@item.InmuId">@("Dire:("+item.Direccion+"), tipo: "+item.TipoLocal)</option>
+					}
+				</select>
+				<span asp-validation-for="InmuId" class="text-danger"></span>
+			</div>
+            <div class="form-group">
+                <label asp-for="InquiId" class="control-label"></label>
+                <input asp-for="InquiId" class="form-control"  readonly/>
+                <span asp-validation-for="InquiId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+				<label class="control-label">Inquilino</label>
+				<select class="form-control" name="Inqui" onchange="cambiaId()" id="idinqui">
+					@foreach (var item in inquilinos)
+					{
+						<option value="@item.InquiId" >@("Nombre:("+item.Nombre+") Dni: "+item.Dni)</option>
+					}
+				</select>
+				<span asp-validation-for="InquiId" class="text-danger"></span>
+			</div>
+            <div class="form-group">
+                <label asp-for="FechaInicio" class="control-label"></label>
+                <input asp-for="FechaInicio" class="form-control" required/>
+                <span asp-validation-for="FechaInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaFinal" class="control-label"></label>
+                <input asp-for="FechaFinal" class="form-control"  required/>
+                <span asp-validation-for="FechaFinal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoAlquiler" class="control-label"></label>
+                <input asp-for="MontoAlquiler" class="form-control" required />
+                <span asp-validation-for="MontoAlquiler" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

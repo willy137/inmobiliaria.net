@@ -11,7 +11,7 @@ public class RepositorioPropietario : Propietario
     public List<Propietario> GetPropietario(){
         List<Propietario> propietarios= new List<Propietario>(){};
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
-            var query=@"SELECT id_prop, nombre, apellido, direccion, telefono, dni FROM propietario";
+            var query=@"SELECT PropId, nombre, apellido, direccion, telefono, dni FROM propietario";
             using(var command= new MySqlCommand(query,connetion))
             {
                 connetion.Open();
@@ -20,7 +20,7 @@ public class RepositorioPropietario : Propietario
                     while(reader.Read()){
                         Propietario propietario = new Propietario
                         {
-                            Id_prop=reader.GetInt32(nameof(Propietario.Id_prop)),//"Id"
+                            PropId=reader.GetInt32(nameof(Propietario.PropId)),//"Id"
                             Nombre=reader.GetString(nameof(Propietario.Nombre)),
                             Apellido=reader.GetString(nameof(Propietario.Apellido)),
                             Direccion=reader.GetString(nameof(Propietario.Direccion)),
@@ -50,7 +50,7 @@ public class RepositorioPropietario : Propietario
                 command.Parameters.AddWithValue("@dni",prop.Dni);
                 connetion.Open();
                 result= Convert.ToInt32(command.ExecuteScalar());
-                prop.Id_prop=result;
+                prop.PropId=result;
                 connetion.Close();
             }
         }
@@ -61,14 +61,14 @@ public class RepositorioPropietario : Propietario
         int result;
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             string query= @"UPDATE propietario
-             SET Nombre=@nombre ,Apellido=@apellido,Direccion=@direccion,Telefono=@telefono,Dni=@dni WHERE Id_prop=@id";
+             SET Nombre=@nombre ,Apellido=@apellido,Direccion=@direccion,Telefono=@telefono,Dni=@dni WHERE PropId=@id";
             using(var command= new MySqlCommand(query,connetion)){
                 command.Parameters.AddWithValue("@nombre",prop.Nombre);
                 command.Parameters.AddWithValue("@apellido",prop.Apellido);
                 command.Parameters.AddWithValue("@direccion",prop.Direccion);
                 command.Parameters.AddWithValue("@telefono",prop.Telefono);
                 command.Parameters.AddWithValue("@dni",prop.Dni);
-                command.Parameters.AddWithValue("@id",prop.Id_prop);
+                command.Parameters.AddWithValue("@id",prop.PropId);
                 connetion.Open();
                 result= command.ExecuteNonQuery();
                 connetion.Close();
@@ -81,7 +81,7 @@ public class RepositorioPropietario : Propietario
     public Propietario Obtener(int id){
         Propietario prop=new Propietario();
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
-            string query= @"SELECT id_prop, nombre, apellido, direccion, telefono, dni FROM propietario WHERE id_prop=@id";
+            string query= @"SELECT PropId, nombre, apellido, direccion, telefono, dni FROM propietario WHERE PropId=@id";
             using(var command= new MySqlCommand(query,connetion)){
                 command.Parameters.AddWithValue("@id",id);
                 connetion.Open();
@@ -90,7 +90,7 @@ public class RepositorioPropietario : Propietario
 					{
 					    prop = new Propietario
 						{
-							Id_prop = reader.GetInt32(nameof(Propietario.Id_prop) ),
+							PropId = reader.GetInt32(nameof(Propietario.PropId) ),
 							Nombre = reader.GetString("Nombre"),
 							Apellido = reader.GetString("Apellido"),
 							Direccion = reader.GetString("Direccion"),
@@ -103,13 +103,37 @@ public class RepositorioPropietario : Propietario
         }
         return prop;
     }
-
-    public int Delete(int id_inqui){
+    public List<Propietario> BuscarNom(String nombre){
+        List<Propietario> props=new List<Propietario>();
+        using (MySqlConnection connetion = new MySqlConnection(connectionString)){
+            string query= @"SELECT PropId, nombre, apellido, direccion, telefono, dni FROM propietario WHERE Nombre=@nombre";
+            using(var command= new MySqlCommand(query,connetion)){
+                command.Parameters.AddWithValue("@nombre",nombre);
+                connetion.Open();
+                var reader = command.ExecuteReader();
+                    while(reader.Read()){
+                        Propietario propietario = new Propietario
+                        {
+                            PropId=reader.GetInt32(nameof(Propietario.PropId)),//"Id"
+                            Nombre=reader.GetString(nameof(Propietario.Nombre)),
+                            Apellido=reader.GetString(nameof(Propietario.Apellido)),
+                            Direccion=reader.GetString(nameof(Propietario.Direccion)),
+                            Telefono=reader.GetString(nameof(Propietario.Telefono)),
+                            Dni=reader.GetString(nameof(Propietario.Dni))
+                        };
+                        props.Add(propietario);
+                    }
+                connetion.Close();
+            }
+        }
+        return props;
+    }
+    public int Delete(int PropId){
         int res=-1;
         using(MySqlConnection connection= new MySqlConnection(connectionString)){
-            string query= @"DELETE FROM propietario WHERE Id_prop = @id;";
+            string query= @"DELETE FROM propietario WHERE PropId = @id;";
             using(var command= new MySqlCommand(query,connection)){
-                command.Parameters.AddWithValue("@id",id_inqui);
+                command.Parameters.AddWithValue("@id",PropId);
                 connection.Open();
                 res= command.ExecuteNonQuery();
                 connection.Close();

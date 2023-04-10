@@ -20,9 +20,9 @@ namespace mvc.Controllers
         }
 
         // GET: Inquilinos/Details/5
-        public ActionResult Details(int id_inqui)
+        public ActionResult Details(int InquiId)
         {
-            Inquilino inqui=repo.ObtenerInqui(id_inqui);
+            Inquilino inqui=repo.ObtenerInqui(InquiId);
             return View(inqui);
         }
 
@@ -48,23 +48,23 @@ namespace mvc.Controllers
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw;
             }
         }
 
         // GET: Inquilinos/Edit/5
-        public ActionResult Edit(int id_inqui)
+        public ActionResult Edit(int InquiId)
         {
-            Inquilino inq=repo.ObtenerInqui(id_inqui);
+            Inquilino inq=repo.ObtenerInqui(InquiId);
             return View(inq);
         }
 
         // POST: Inquilinos/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id_inqui, Inquilino inqui)
+        public ActionResult Edit(int InquiId, Inquilino inqui)
         {
             try
             {
@@ -72,38 +72,44 @@ namespace mvc.Controllers
                 repo.EditI(inqui);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw;
             }
         }
 
         // GET: Inquilinos/Delete/5
-        public ActionResult Delete(int Id_inqui)
+        public ActionResult Delete(int InquiId)
         {
-            Inquilino inq=repo.ObtenerInqui(Id_inqui);
+            try{
+            Inquilino inq=repo.ObtenerInqui(InquiId);
             return View(inq);
+            }catch(Exception ex){
+                throw;
+            }
+
+
         }
 
         // POST: Inquilinos/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int Id_inqui, Inquilino inqui)
+        public ActionResult Delete(int InquiId, Inquilino inqui)
         {
             try
             {
 
                 // TODO: Add delete logic here
-                int res=repo.Delete(Id_inqui);
+                int res=repo.Delete(InquiId);
                 if(res>0){
                     return Redirect("/inquilinos");
                 }else{
                     return View();
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw;
             }
         }
     }

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=DM+Serif+Display:ital@1&family=Dancing+Script:wght@700&family=Josefin+Sans:ital,wght@0,500;1,300&display=swap');
+
+
+body{
+    background: linear-gradient(#852535, #2d788dc7);   
+}
+.contener{
+    color: #57b3d8;
+    font-family: 'DM Serif Display', serif;
+}
+a{
+    color: #ffff;
+}
+a:hover{
+    background-color: black;
+}
+h1{
+    color: aliceblue;
+}

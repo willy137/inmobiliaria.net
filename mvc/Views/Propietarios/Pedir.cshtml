@@ -5,21 +5,20 @@
 }
 
 <h1>Propietarios</h1>
-
-<p>
-    <a asp-action="Create">Registra Propietario</a>
-</p>
 <table class="table" id="tabla">
     <thead>
         <tr >
             <th class="titulos">
+                @Html.DisplayNameFor(model => model.PropId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Apellido)
             </th>
             <th >
-                @Html.DisplayNameFor(model => model.Direccion)
+                @Html.DisplayNameFor(model => model.Dni)
             </th>
         </tr>
     </thead>
@@ -27,20 +26,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.PropId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { item.PropId }) |
-                @Html.ActionLink("Details", "Details", new { item.PropId}) |
-                @Html.ActionLink("Delete", "Delete", new { item.PropId })
+                @Html.DisplayFor(modelItem => item.Dni)
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a href="#" onclick="window.history.back()">Volver atrás</a>
+</div>
