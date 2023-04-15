@@ -2,15 +2,14 @@ namespace mvc.Models;
 
 using MySql.Data.MySqlClient;
 
-public class RepositorioInquilino : Inquilino
-{
-    string connectionString="Server=localhost;User=root;Password=;Database=inmo;SslMode=";
+public class RepositorioInquilino : RepositorioBase,IRepositorioInquilino{
 
-    public RepositorioInquilino (){
+
+    public RepositorioInquilino (IConfiguration configuracion):base(configuracion){
 
     }
-    public List<Inquilino> GetInquilino(){
-        List<Inquilino> inquilinos= new List<Inquilino>(){};
+    public IList<Inquilino> GetObtenerTodos(){
+        IList<Inquilino> inquilinos= new List<Inquilino>(){};
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             var query=@"SELECT InquiId, nombre, apellido, dni, domicilio,telefono FROM inquilino";
             using(var command= new MySqlCommand(query,connetion))
@@ -35,10 +34,10 @@ public class RepositorioInquilino : Inquilino
             }
             connetion.Close();
         }
-        return inquilinos;
+        return inquilinos ;
     }
 
-    public Inquilino ObtenerInqui(int id){
+    public Inquilino Obtener(int id){
         Inquilino inqui= new Inquilino();
             using (MySqlConnection connetion = new MySqlConnection(connectionString)){
                 var query=@"SELECT InquiId, nombre, apellido, dni, domicilio,telefono FROM inquilino WHERE InquiId=@id;";
@@ -83,7 +82,7 @@ public class RepositorioInquilino : Inquilino
         return resul;
     } 
 
-    public int EditI(Inquilino inqui){
+    public int Edit(Inquilino inqui){
         int resul=-1;
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             string query= @"UPDATE inquilino

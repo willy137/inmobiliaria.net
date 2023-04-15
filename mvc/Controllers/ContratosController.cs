@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using mvc.Models;
@@ -12,40 +13,47 @@ namespace Inmobiliaria.Controllers
     {
 
 
-        private readonly RepositorioContrato repoC= new RepositorioContrato();
+        private readonly IRepositorioContrato repoC;
+        private readonly IRepositorioInmueble repoInmu;
 
-        private readonly RepositorioInmueble repoInmu= new RepositorioInmueble();
+        private readonly IRepositorioInquilino repoInqui;
 
-        private readonly RepositorioInquilino repoInqui=new RepositorioInquilino();
+         public ContratosController (IRepositorioContrato repoC,IRepositorioInmueble repoI, IRepositorioInquilino repoInq){
+            this.repoC=repoC;
+            this.repoInmu=repoI;
+            this.repoInqui=repoInq;
+        }
 
+
+        [Authorize]
         // GET: Contratos
         public ActionResult Index()
         {
             try{
-                List<Contrato> contratos= repoC.GetContratos();
+                IList<Contrato> contratos= repoC.GetObtenerTodos();
                 return View(contratos);
             }catch(Exception ex){
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Contratos/Details/5
         public ActionResult Details(int ContratoId)
         {
             try{
-                Contrato contrato= repoC.ObtenerContrato(ContratoId);
+                Contrato contrato= repoC.Obtener(ContratoId);
                 return View(contrato);
             }catch(Exception ex){
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Contratos/Create
         public ActionResult Create()
         {  
             try{
-                ViewBag.inquis=repoInqui.GetInquilino();
-                ViewBag.Inmuebles=repoInmu.GetInmuebles();
+                ViewBag.inquis=repoInqui.GetObtenerTodos();
+                ViewBag.Inmuebles=repoInmu.GetObtenerTodos();
                 return View();
             }catch(Exception ex){
                 throw;
@@ -68,13 +76,15 @@ namespace Inmobiliaria.Controllers
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Contratos/Edit/5
         public ActionResult Edit(int ContratoId)
         {   
             try
             {
-                Contrato con=repoC.ObtenerContrato(ContratoId);
+                ViewBag.inmu=repoInmu.GetObtenerTodos();
+                ViewBag.inqui=repoInqui.GetObtenerTodos();
+                Contrato con=repoC.Obtener(ContratoId);
                 return View(con);
             }
             catch(Exception ex)
@@ -99,13 +109,13 @@ namespace Inmobiliaria.Controllers
                 throw;
             }
         }
-
+        [Authorize(Policy = "Administrador")]
         // GET: Contratos/Delete/5
         public ActionResult Delete(int ContratoId)
         {
             try
             {
-                Contrato con=repoC.ObtenerContrato(ContratoId);
+                Contrato con=repoC.Obtener(ContratoId);
                 return View(con);
             }
             catch (Exception ex)

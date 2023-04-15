@@ -2,11 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Josefin+Sans:ital,wght@0,500;1,300&display=swap');
 
 body{
-    background: -webkit-linear-gradient(90deg, rgb(27, 114, 155) 30%, rgb(87, 20, 94) 90%);
-    background: -moz-linear-gradient(90deg, rgb(27, 114, 155) 30%, rgb(87, 20, 94) 90%);
-    background: -ms-linear-gradient(90deg, rgb(27, 114, 155) 30%, rgb(87, 20, 94) 90%);
-    background: -o-linear-gradient(90deg, rgb(27, 114, 155) 30%, rgb(87, 20, 94) 90%);
-    background: linear-gradient(90deg, rgb(27, 114, 155) 30%, rgb(87, 20, 94) 90%);
+    background: -webkit-linear-gradient(90deg, rgb(94, 105, 110) 30%, rgb(163, 15, 77) 90%);
+    background: -moz-linear-gradient(90deg,  rgb(94, 105, 110) 30%, rgb(163, 15, 77) 90%);
+    background: -ms-linear-gradient(90deg,  rgb(94, 105, 110) 30%, rgb(163, 15, 77) 90%);
+    background: -o-linear-gradient(90deg,  rgb(94, 105, 110) 30%, rgb(163, 15, 77) 90%);
+    background: linear-gradient(90deg,  rgb(94, 105, 110) 30%, rgb(163, 15, 77) 90%);
 }
 .row{
     width: 700px;

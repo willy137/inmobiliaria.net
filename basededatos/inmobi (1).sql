@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2023 a las 03:02:45
+-- Tiempo de generación: 15-04-2023 a las 02:24:33
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `inmo`
+-- Base de datos: `inmobi`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,8 @@ CREATE TABLE `contrato` (
 --
 
 INSERT INTO `contrato` (`ContratoId`, `InmuId`, `InquiId`, `FechaInicio`, `FechaFinal`, `MontoAlquiler`) VALUES
-(3, 8, 6, '2023-04-06 22:40:00', '2023-04-21 22:40:00', 40000);
+(3, 8, 7, '2023-04-06 22:40:00', '2023-04-21 22:40:00', 40000),
+(4, 9, 7, '2023-04-11 14:55:00', '2023-04-21 14:55:00', 300000);
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,7 @@ CREATE TABLE `propietario` (
 --
 
 INSERT INTO `propietario` (`PropId`, `Nombre`, `Apellido`, `Direccion`, `Telefono`, `Dni`) VALUES
-(16, 'Pepito', 'Elmes', 'Barrio Liberta 1432', '2664131342', '36145689'),
+(16, 'Pepito', 'Elmes', 'Barrio Liberta 1432', '2664131342', '36145685'),
 (17, 'Maria', 'Algarrobo', 'Mitre 854', '2665789523', '40123486');
 
 -- --------------------------------------------------------
@@ -148,8 +149,17 @@ CREATE TABLE `usuario` (
   `Apellido` varchar(200) NOT NULL,
   `Password` varchar(2000) NOT NULL,
   `Correo` varchar(1000) NOT NULL,
-  `Rol` varchar(200) NOT NULL
+  `Rol` int(200) NOT NULL,
+  `Avatar` varchar(10000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`UsuarioId`, `Nombre`, `Apellido`, `Password`, `Correo`, `Rol`, `Avatar`) VALUES
+(4, 'User123', 'ElAdmin', 'YbEZizxRKoyT5YIUdfxkHhVDncuy0wiYDLHvKan95mM=', 'elAdmin@gmail.com', 1, '/Uploads\\avatar_dff6dfde-8350-4897-a738-6462074074b0.jpg'),
+(5, 'elEmpleado', 'probando', 'p/V0UYlRQ2r74WKivv2RUuuXKsdPJWaZnVJLUDsKk3c=', 'elEmpleado@gmail.com', 2, '/Uploads\\avatar_8a7926dd-7885-4015-a0f0-35b63b56a458.jpeg');
 
 --
 -- Índices para tablas volcadas
@@ -204,7 +214,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `ContratoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ContratoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
@@ -234,7 +244,7 @@ ALTER TABLE `propietario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

@@ -1,14 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - mvc</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/mvc.styles.css" asp-append-version="true" />
+    <script src="~/js/_Layout.cstml.js"></script>
+
 </head>
 <body>
+    @{
+        var usuario=(string)ViewBag.Rol;
+    }
     <header>
         <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -26,20 +32,46 @@
                             <a class="nav-link text-info" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                             <li class="nav-item">
-                            <a class="nav-link text-info " asp-area="" asp-controller="Propietarios" asp-action="">Propietarios</a>
+                            <a class="nav-link text-info " asp-area="" asp-controller="Propietarios" asp-action=""><img src="/img/prop.png" alt="">Propietarios</a>
                         </li>
                             <li class="nav-item">
-                            <a class="nav-link text-info"  asp-controller="Inquilinos" asp-action="">Inquilinos</a>
-                        </li>
-                        </li>
-                            <li class="nav-item">
-                            <a class="nav-link text-info"  asp-controller="Inmuebles" asp-action="">Inmuebles</a>
+                            <a class="nav-link text-info"  asp-controller="Inquilinos" asp-action=""><img src="/img/inqui.png" alt="">Inquilinos</a>
                         </li>
                         </li>
                             <li class="nav-item">
-                            <a class="nav-link text-info"  asp-controller="Contratos" asp-action="">Contratos</a>
+
+                            <a class="nav-link text-info"  asp-controller="Inmuebles" asp-action=""><img src="/img/house_38533.png" alt="">Inmuebles</a>
                         </li>
+                        </li>
+                            <li class="nav-item">
+
+                            <a class="nav-link text-info"  asp-controller="Contratos" asp-action=""><img src="/img/contrato.png" alt="">Contratos</a>
+                        </li>
+                        </li>
+                            <li class="nav-item">
+                            <a class="nav-link text-info"  asp-controller="Pagos" asp-action=""><img src="/img/pago2.png" alt="">Pagos</a>
+                        </li>
+                            @if (usuario!=null)
+                            {
+                                @if (usuario.Equals("Administrador"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-info"  asp-controller="Usuarios" asp-action=""><img src="/img/users.png" alt="">Usuarios</a>
+                                    </li>
+                                }
+                            }
+
                     </ul>
+                    <div class="list">
+                    <!-- Elemento que muestra la lista desplegable -->
+                    <button class="button" onclick="desplegar()"><img src="/img/perfil.png" alt=""> Perfil</button>
+                    <!-- Lista desplegable oculta por defecto -->
+                        <ul class="menu">
+                        <!-- Elementos de la lista desplegable -->
+                        <a class="nav-link text-info"  asp-controller="Usuarios" asp-action="Edit">Editar Perfil</a>
+                        <a class="nav-link text-info"  asp-controller="Usuarios" asp-action="logout">Salir</a>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

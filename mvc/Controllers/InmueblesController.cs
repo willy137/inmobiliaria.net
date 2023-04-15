@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using mvc.Models;
@@ -12,39 +13,44 @@ namespace Inmobiliaria.Controllers
     public class InmueblesController : Controller
     {
 
-        private readonly RepositorioInmueble repoI= new RepositorioInmueble();
-        private readonly RepositorioPropietario repoP= new RepositorioPropietario();
+        private readonly IRepositorioInmueble repoI;
+        private readonly IRepositorioPropietario repoP;
+
+        public InmueblesController (IRepositorioPropietario repo,IRepositorioInmueble repoI){
+            this.repoI=repoI;
+            this.repoP=repo;
+        }
         
 
-
+        [Authorize]
         // GET: Inmuebles
         public ActionResult Index()
         {
             try{
-                List<Inmueble> inmus=repoI.GetInmuebles(); 
+                IList<Inmueble> inmus=repoI.GetObtenerTodos(); 
                 return View(inmus);
             }catch(Exception ex){
                 throw;
             }
         
         }
-
+        [Authorize]
         // GET: Inmuebles/Details/5
         public ActionResult Details(int InmuId)
         {
             try{
-                Inmueble inmu=repoI.ObtenerInmu(InmuId); 
+                Inmueble inmu=repoI.Obtener(InmuId); 
                 return View(inmu);
             }catch(Exception ex){
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Inmuebles/Create
         public ActionResult Create()
         {   
             try{
-                ViewBag.Prop=repoP.GetPropietario();
+                ViewBag.Prop=repoP.GetObtenerTodos();
                 return View();
             }catch(Exception ex){
                 throw;
@@ -75,12 +81,13 @@ namespace Inmobiliaria.Controllers
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Inmuebles/Edit/5
         public ActionResult Edit(int InmuId)
         {
             try{
-                Inmueble inmu=repoI.ObtenerInmu(InmuId);
+                ViewBag.prop=repoP.GetObtenerTodos();
+                Inmueble inmu=repoI.Obtener(InmuId);
                 return View(inmu);
             }catch(Exception ex){
                 throw;
@@ -104,12 +111,12 @@ namespace Inmobiliaria.Controllers
                 throw;
             }
         }
-
+        [Authorize(Policy = "Administrador")]
         // GET: Inmuebles/Delete/5
         public ActionResult Delete(int InmuId)
         {
             try{
-                Inmueble inmu=repoI.ObtenerInmu(InmuId);
+                Inmueble inmu=repoI.Obtener(InmuId);
                 return View(inmu);
             }catch(Exception ex){
                 throw;

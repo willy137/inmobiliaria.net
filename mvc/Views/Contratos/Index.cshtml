@@ -42,15 +42,10 @@
                 @Html.DisplayFor(modelItem => item.FechaFinal)
             </td>
             <td>
-                <a href="@Url.Action("Edit", new { ContratoId=item.ContratoId})" class="edit" >
-                   <img src="@Url.Content("~/img/editar.png")" alt="Editar"/>
-                </a>
-                <a href="@Url.Action("Details", new { ContratoId =item.ContratoId})"  class="deta" >
-                    <img src="@Url.Content("~/img/detalle.png")" alt="Detalles"/>
-                </a>
-                <a href="@Url.Action("Delete", new { ContratoId =item.ContratoId})" class="elim" />
-                    <img src="@Url.Content("~/img/elim.png")" alt="Eliminar" >
-                </a>
+                @Html.ActionLink("Edit", "Edit", new {item.ContratoId}) |
+                @Html.ActionLink("Details", "Details", new { item.ContratoId}) |
+                @Html.ActionLink("Delete", "Delete", new { item.ContratoId })  |
+                @Html.ActionLink("Pago", "PedirPagos","Pagos", new { item.ContratoId })
             </td>
         </tr>
 }

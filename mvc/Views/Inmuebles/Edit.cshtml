@@ -1,7 +1,9 @@
 @model mvc.Models.Inmueble
 <link rel="stylesheet" href="/css/inmu/edit.css">
+<script src="/js/inmueble/edit.js"></script>
 @{
     ViewData["Title"] = "Edit";
+    var props= (List<Propietario>)ViewBag.Prop;
 }
 
 <h1>Edit</h1>
@@ -19,9 +21,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="PropId" class="control-label"></label>
-                <input asp-for="PropId" class="form-control" />
+                <input asp-for="PropId" class="form-control" readonly />
                 <span asp-validation-for="PropId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+				<label class="control-label">Propietario</label>
+				<select class="form-control" name="PropId" onchange="cambioId()" id="selecId">
+					@foreach (var item in props)
+					{
+						<option value="@item.PropId">@("("+item.Nombre.ToString()+") DNI: "+item.Dni)</option>
+					}
+				</select>
+				<span asp-validation-for="PropId" class="text-danger"></span>
+			</div>
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
                 <input asp-for="Direccion" class="form-control" />

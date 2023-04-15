@@ -1,22 +1,19 @@
 @model IEnumerable<mvc.Models.Pago>
-
+<link rel="stylesheet" href="/css/pago/index.css">
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Pagos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Registrar Pago</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PagoId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContratoId)
+                @Html.DisplayNameFor(model => model.inquilino)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NumeroPago)
@@ -33,11 +30,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+
             <td>
-                @Html.DisplayFor(modelItem => item.PagoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContratoId)
+                @Html.DisplayFor(modelItem => item.inquilino.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumeroPago)
@@ -49,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.Importe)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {item.PagoId }) |
+                @Html.ActionLink("Details", "Details", new {item.PagoId }) |
+                @Html.ActionLink("Delete", "Delete", new { item.PagoId})
             </td>
         </tr>
 }

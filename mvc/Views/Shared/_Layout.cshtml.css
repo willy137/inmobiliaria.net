@@ -48,3 +48,51 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+li>a>img{
+  width: 20px;
+  height: 20px;
+}
+.list {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.list > .button {
+
+  background-color: #212529;
+  border: none;
+  outline: none;
+  width: 100px;
+  color: #17caf0;
+}
+.button>img{
+  width: 20px;
+}
+.list > .menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  background-color: #292829;
+  border: 1px solid #001e5f;
+  color: #0077cc;
+  width: 150px;
+}
+
+.list > .menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.list > .menu li:hover {
+  background-color: #f0f0f0;
+}
+
+
+.list > .menu li.selected {
+  background-color: #ccc;
+}

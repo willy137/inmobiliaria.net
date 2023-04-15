@@ -1,15 +1,14 @@
 namespace mvc.Models;
 using MySql.Data.MySqlClient;
 
-public class RepositorioContrato : Contrato
+public class RepositorioContrato : RepositorioBase,IRepositorioContrato
 {
-    string connectionString="Server=localhost;User=root;Password=;Database=inmo;SslMode=";
 
-    public RepositorioContrato(){
+    public RepositorioContrato(IConfiguration configuracion):base(configuracion){
 
     }
-    public List<Contrato> GetContratos(){
-        List<Contrato> contratos= new List<Contrato>(){};
+    public IList<Contrato> GetObtenerTodos(){
+        IList<Contrato> contratos= new List<Contrato>(){};
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             var query=@"SELECT ContratoId, c.InmuId, c.InquiId, FechaInicio, FechaFinal, MontoAlquiler, i.Nombre,i.Apellido ,inm.Direccion 
             FROM contrato c INNER JOIN inquilino i INNER JOIN inmueble inm 
@@ -88,7 +87,7 @@ public class RepositorioContrato : Contrato
     }
 
 
-    public Contrato ObtenerContrato(int id){
+    public Contrato Obtener(int id){
         Contrato contra=new Contrato();
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             string query= @"SELECT ContratoId, c.InmuId, c.InquiId, FechaInicio, FechaFinal, MontoAlquiler, i.Nombre,i.Apellido ,inm.Direccion 

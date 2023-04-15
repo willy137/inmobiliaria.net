@@ -1,7 +1,10 @@
 @model mvc.Models.Contrato
 <link rel="stylesheet" href="/css/contra/edit.css">
+<script src="/js/contrato/edit.js" defer></script>
 @{
     ViewData["Title"] = "Edit";
+    var inmus= (IList<Inmueble>)ViewBag.inmu;
+    var inqui= (IList<Inquilino>)ViewBag.inqui;
 }
 
 <h1>Editar</h1>
@@ -14,19 +17,39 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ContratoId" class="control-label"></label>
-                <input asp-for="ContratoId" class="form-control" />
+                <input asp-for="ContratoId" class="form-control" readonly/>
                 <span asp-validation-for="ContratoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="InmuId" class="control-label"></label>
-                <input asp-for="InmuId" class="form-control" />
+                <input asp-for="InmuId" class="form-control"  readonly/>
                 <span asp-validation-for="InmuId" class="text-danger"></span>
             </div>
             <div class="form-group">
+				<label class="control-label">Inmueble</label>
+				<select class="form-control" name="InmuId" onchange="cambioId()" id="selecIdInmu">
+					@foreach (var item in inmus)
+					{
+						<option value="@item.InmuId">@("("+item.Direccion+") Tipo: "+item.TipoLocal)</option>
+					}
+				</select>
+				<span asp-validation-for="InmuId" class="text-danger"></span>
+			</div>
+            <div class="form-group">
                 <label asp-for="InquiId" class="control-label"></label>
-                <input asp-for="InquiId" class="form-control" />
+                <input asp-for="InquiId" class="form-control" readonly />
                 <span asp-validation-for="InquiId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+				<label class="control-label">Inquilino</label>
+				<select class="form-control" name="InquiId" onchange="cambioIdInqui()" id="selecIdInqui">
+					@foreach (var item in inqui)
+					{
+						<option value="@item.InquiId">@("("+item.Nombre+") Dni:"+item.Dni)</option>
+					}
+				</select>
+                <span asp-validation-for="InquiId" class="text-danger"></span>
+			</div>
             <div class="form-group">
                 <label asp-for="FechaInicio" class="control-label"></label>
                 <input asp-for="FechaInicio" class="form-control" />

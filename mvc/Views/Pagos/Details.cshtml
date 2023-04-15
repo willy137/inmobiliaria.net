@@ -1,5 +1,5 @@
 @model mvc.Models.Pago
-
+<link rel="stylesheet" href="/css/pago/details.css">
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,6 +21,30 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ContratoId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.inmueble)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.inmueble.Direccion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.inmueble.TipoLocal)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.inmueble.TipoLocal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.inquilino)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.inquilino.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.inquilino.Dni)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.inquilino.Dni)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NumeroPago)

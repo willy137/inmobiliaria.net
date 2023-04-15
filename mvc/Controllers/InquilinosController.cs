@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using mvc.Models;
@@ -10,22 +11,31 @@ namespace mvc.Controllers
 {
     public class InquilinosController : Controller
     {
+        private readonly IRepositorioInquilino repo;
 
-        private readonly RepositorioInquilino repo= new RepositorioInquilino();
+
+        public InquilinosController (IRepositorioInquilino repoInq){
+            this.repo=repoInq;
+        }
+        [Authorize]
         // GET: Inquilinos
         public ActionResult Index()
         {
-            List<Inquilino> inqui=repo.GetInquilino();
-            return View(inqui);
+            try{
+                IList<Inquilino> inqui=repo.GetObtenerTodos();
+                return View(inqui);
+            }catch(Exception ex){
+                throw;
+            }
         }
-
+        [Authorize]
         // GET: Inquilinos/Details/5
         public ActionResult Details(int InquiId)
         {
-            Inquilino inqui=repo.ObtenerInqui(InquiId);
+            Inquilino inqui=repo.Obtener(InquiId);
             return View(inqui);
         }
-
+        [Authorize]
         // GET: Inquilinos/Create
         public ActionResult Create()
         {
@@ -53,11 +63,11 @@ namespace mvc.Controllers
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Inquilinos/Edit/5
         public ActionResult Edit(int InquiId)
         {
-            Inquilino inq=repo.ObtenerInqui(InquiId);
+            Inquilino inq=repo.Obtener(InquiId);
             return View(inq);
         }
 
@@ -69,7 +79,7 @@ namespace mvc.Controllers
             try
             {
                 // TODO: Add update logic here
-                repo.EditI(inqui);
+                repo.Edit(inqui);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)
@@ -77,12 +87,12 @@ namespace mvc.Controllers
                 throw;
             }
         }
-
+        [Authorize(Policy = "Administrador")]
         // GET: Inquilinos/Delete/5
         public ActionResult Delete(int InquiId)
         {
             try{
-            Inquilino inq=repo.ObtenerInqui(InquiId);
+            Inquilino inq=repo.Obtener(InquiId);
             return View(inq);
             }catch(Exception ex){
                 throw;

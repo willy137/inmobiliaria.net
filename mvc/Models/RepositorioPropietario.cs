@@ -1,14 +1,12 @@
 namespace mvc.Models;
 using MySql.Data.MySqlClient;
 
-public class RepositorioPropietario : Propietario
-{
-    string connectionString="Server=localhost;User=root;Password=;Database=inmo;SslMode=";
+public class RepositorioPropietario : RepositorioBase,IRepositorioPropietario{
 
-    public RepositorioPropietario(){
+    public RepositorioPropietario(IConfiguration configuracion):base(configuracion){
 
     }
-    public List<Propietario> GetPropietario(){
+    public IList<Propietario> GetObtenerTodos(){
         List<Propietario> propietarios= new List<Propietario>(){};
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             var query=@"SELECT PropId, nombre, apellido, direccion, telefono, dni FROM propietario";
@@ -103,8 +101,8 @@ public class RepositorioPropietario : Propietario
         }
         return prop;
     }
-    public List<Propietario> BuscarNom(String nombre){
-        List<Propietario> props=new List<Propietario>();
+    public IList<Propietario> BuscarNom(String nombre){
+        IList<Propietario> props=new List<Propietario>();
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             string query= @"SELECT PropId, nombre, apellido, direccion, telefono, dni FROM propietario WHERE Nombre=@nombre";
             using(var command= new MySqlCommand(query,connetion)){

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,33 +13,39 @@ namespace Inmobiliaria.Controllers
     public class PropietariosController : Controller
     {
         // GET: Propietario
-        private readonly RepositorioPropietario repo= new RepositorioPropietario();
+        private readonly IRepositorioPropietario repoP;
+
+        public PropietariosController(IRepositorioPropietario repo){
+            this.repoP=repo;
+        }
+
+        [Authorize]
         public ActionResult Index()
         {
             try{
-                List<Propietario> p=repo.GetPropietario();
+                IList<Propietario> p=repoP.GetObtenerTodos();
                 return View(p);
             }catch(Exception ex){
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Propietario/Details/5
         public ActionResult Details(int PropId)
         {
-            Propietario p=repo.Obtener(PropId);
+            Propietario p=repoP.Obtener(PropId);
             return View(p);
         }
 
-
+        [Authorize]
         // GET: Propietario/Details/5
         public ActionResult Pedir(Propietario prop)
         {
-            List<Propietario> p=repo.BuscarNom(prop.Nombre);
+            IList<Propietario> p=repoP.BuscarNom(prop.Nombre);
             
-            return View();
+            return View(p);
         }
-
+        [Authorize]
         // GET: Propietario/Create
         public ActionResult Create()
         {
@@ -46,7 +53,7 @@ namespace Inmobiliaria.Controllers
             {
                 return View();
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
                 
                 throw;
@@ -60,7 +67,7 @@ namespace Inmobiliaria.Controllers
         {
             try{
                 // TODO: Add insert logic here
-                int resul=repo.Create(prop);
+                int resul=repoP.Create(prop);
                 if(resul>0){
                     return RedirectToAction(nameof(Index));
                 }else{
@@ -72,11 +79,11 @@ namespace Inmobiliaria.Controllers
             }
 
         }
-
+        [Authorize]
         // GET: Propietario/Edit/5
         public ActionResult Edit(int PropId)
         {
-            Propietario p=repo.Obtener(PropId);
+            Propietario p=repoP.Obtener(PropId);
             return View(p);
         }
 
@@ -87,7 +94,7 @@ namespace Inmobiliaria.Controllers
         {
             try
             {
-                repo.Edit(prop);
+                repoP.Edit(prop);
                 // TODO: Add update logic here
                 return RedirectToAction(nameof(Index));
             }
@@ -96,11 +103,12 @@ namespace Inmobiliaria.Controllers
                 throw;
             }
         }
-
+        
+        [Authorize(Policy="Administrador")]
         // GET: Propietario/Delete/5
         public ActionResult Delete(int PropId)
         {
-            Propietario p=repo.Obtener(PropId);
+            Propietario p=repoP.Obtener(PropId);
             return View(p);
         }
 
@@ -112,7 +120,7 @@ namespace Inmobiliaria.Controllers
             try
             {
                 // TODO: Add delete logic here
-                int resul=repo.Delete(PropId);
+                int resul=repoP.Delete(PropId);
 
                 if(resul>0){
                     return Redirect("/propietarios");

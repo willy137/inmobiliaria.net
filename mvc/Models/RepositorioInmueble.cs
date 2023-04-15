@@ -2,15 +2,13 @@ namespace mvc.Models;
 
 using MySql.Data.MySqlClient;
 
-public class RepositorioInmueble : Inmueble
+public class RepositorioInmueble : RepositorioBase,IRepositorioInmueble
 {
-    string connectionString="Server=localhost;User=root;Password=;Database=inmo;SslMode=";
-
-    public RepositorioInmueble (){
+    public RepositorioInmueble (IConfiguration configuracion):base(configuracion){
 
     }
-    public List<Inmueble> GetInmuebles(){
-        List<Inmueble> inmuebles= new List<Inmueble>(){};
+    public IList<Inmueble> GetObtenerTodos(){
+        IList<Inmueble> inmuebles= new List<Inmueble>(){};
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             var query=@"SELECT InmuId, i.PropId, i.Direccion, UsoComercial, TipoLocal,CantidadAmbientes,Latitud,Longitud,Precio , p.Nombre,p.Apellido 
             FROM Inmueble i INNER JOIN Propietario p ON i.PropId=p.PropId";
@@ -48,7 +46,7 @@ public class RepositorioInmueble : Inmueble
     }
 //            var query=@"SELECT InmuId, PropId, Direccion, UsoComercial, TipoLocal,CantidadAmbientes,Latitud,Longitud,Precio ,p.Nombre,p.Apellido 
             //FROM Inmueble i JOIN Propietario p ON i.PropId = P.PropId WHERE PropId=@idProp";
-    public Inmueble ObtenerInmu(int id){
+    public Inmueble Obtener(int id){
         Inmueble inmu= new Inmueble();
             using (MySqlConnection connetion = new MySqlConnection(connectionString)){
                 var query=@"SELECT InmuId, i.PropId, i.Direccion, UsoComercial, TipoLocal,CantidadAmbientes,Latitud,Longitud,Precio , p.Nombre,p.Apellido 
