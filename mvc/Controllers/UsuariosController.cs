@@ -59,7 +59,7 @@ namespace mvc.Controllers
                 throw;
             }
         }
-
+        [Authorize]
         // GET: Usuarios/Create
         public ActionResult Create()
         {
