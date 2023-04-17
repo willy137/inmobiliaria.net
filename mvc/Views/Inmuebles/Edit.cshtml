@@ -1,12 +1,12 @@
 @model mvc.Models.Inmueble
 <link rel="stylesheet" href="/css/inmu/edit.css">
-<script src="/js/inmueble/edit.js"></script>
+<script src="/js/inmueble/edit.js" defer></script>
 @{
     ViewData["Title"] = "Edit";
     var props= (List<Propietario>)ViewBag.Prop;
 }
 
-<h1>Edit</h1>
+<h1>Modificar</h1>
 
 <h4>Inmueble</h4>
 <hr />
@@ -20,13 +20,13 @@
                 <span asp-validation-for="InmuId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PropId" class="control-label"></label>
-                <input asp-for="PropId" class="form-control" readonly />
+                <label asp-for="PropId" class="control-label" hidden></label>
+                <input asp-for="PropId" class="form-control" hidden readonly />
                 <span asp-validation-for="PropId" class="text-danger"></span>
             </div>
             <div class="form-group">
 				<label class="control-label">Propietario</label>
-				<select class="form-control" name="PropId" onchange="cambioId()" id="selecId">
+				<select class="form-control" name="PropId" onchange="cambioId2()" id="selecId">
 					@foreach (var item in props)
 					{
 						<option value="@item.PropId">@("("+item.Nombre.ToString()+") DNI: "+item.Dni)</option>
@@ -36,42 +36,42 @@
 			</div>
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
+                <input asp-for="Direccion" class="form-control"  required/>
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UsoComercial" class="control-label"></label>
-                <input asp-for="UsoComercial" class="form-control" />
+                <input asp-for="UsoComercial" class="form-control" required/>
                 <span asp-validation-for="UsoComercial" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoLocal" class="control-label"></label>
-                <input asp-for="TipoLocal" class="form-control" />
+                <input asp-for="TipoLocal" class="form-control" required/>
                 <span asp-validation-for="TipoLocal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CantidadAmbientes" class="control-label"></label>
-                <input asp-for="CantidadAmbientes" class="form-control" />
+                <input asp-for="CantidadAmbientes" class="form-control" required/>
                 <span asp-validation-for="CantidadAmbientes" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Latitud" class="control-label"></label>
-                <input asp-for="Latitud" class="form-control" />
+                <input asp-for="Latitud" class="form-control"required />
                 <span asp-validation-for="Latitud" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Longitud" class="control-label"></label>
-                <input asp-for="Longitud" class="form-control" />
+                <input asp-for="Longitud" class="form-control" required/>
                 <span asp-validation-for="Longitud" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
+                <input asp-for="Precio" class="form-control"required />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Index" id="volver" >Back to List</a>
+            <div class="form-group" id="boton">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" id="volver" >Volver</a>
             </div>
         </form>
     </div>

@@ -61,7 +61,7 @@ public class RepositorioPago : RepositorioBase,IRepositorioPago{
                 command.Parameters.AddWithValue("@contra",pago.ContratoId);
                 command.Parameters.AddWithValue("@numPago",pago.NumeroPago);
                 command.Parameters.AddWithValue("@fechaP",pago.FechaPago);
-                command.Parameters.AddWithValue("@Importe",pago.Importe);
+                command.Parameters.AddWithValue("@monto",pago.Importe);
                 connetion.Open();
                 result= Convert.ToInt32(command.ExecuteScalar());
                 pago.PagoId=result;
@@ -93,7 +93,7 @@ public class RepositorioPago : RepositorioBase,IRepositorioPago{
     public Pago Obtener(int id){
         Pago pago=new Pago();
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
-            string query= @"SELECT PagoId, p.ContratoId, NumeroPago, FechaPago, Importe, c.InquiId,c.InmuId , inq.InquiId,inq.Nombre , inq.Dni,inmu.InmuId, inmu.Direccion,inmu.TipoLocal 
+            string query= @"SELECT PagoId, p.ContratoId, NumeroPago, FechaPago, Importe, c.InquiId,c.InmuId , inq.InquiId,inq.Nombre , inq.Dni,inmu.InmuId, inmu.Direccion,inmu.TipoLocal,inmu.Precio
             FROM Pago p INNER JOIN Contrato c INNER JOIN inquilino inq INNER JOIN inmueble inmu 
             ON p.ContratoId=c.ContratoId AND c.InquiId=inq.InquiId AND c.InmuId=inmu.InmuId
             WHERE PagoId=@id;";
@@ -118,7 +118,8 @@ public class RepositorioPago : RepositorioBase,IRepositorioPago{
                             inmueble=new Inmueble{
                                 InmuId=reader.GetInt32(nameof(Contrato.InmuId)),
                                 Direccion=reader.GetString(nameof(Inmueble.Direccion)),
-                                TipoLocal=reader.GetString(nameof(Inmueble.TipoLocal))
+                                TipoLocal=reader.GetString(nameof(Inmueble.TipoLocal)),
+                                Precio=reader.GetDecimal(nameof(Inmueble.Precio))
                             },
                             inquilino=new Inquilino{
                                 InquiId=reader.GetInt32(nameof(Contrato.InquiId)),
@@ -149,8 +150,8 @@ public class RepositorioPago : RepositorioBase,IRepositorioPago{
         public IList<Pago> ObtenerPagos(int id){
         IList<Pago> pagos=new List<Pago>();
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
-            string query= @"SELECT PagoId, p.ContratoId, NumeroPago, FechaPago, Importe, c.InquiId,c.InmuId , inq.InquiId,inq.Nombre , inq.Dni,inmu.InmuId, inmu.Direccion,inmu.TipoLocal 
-            FROM Pago p INNER JOIN Contrato c INNER JOIN inquilino inq INNER JOIN inmueble inmu 
+            string query= @"SELECT PagoId, p.ContratoId, NumeroPago, FechaPago, Importe, c.InquiId,c.InmuId , inq.InquiId,inq.Nombre , inq.Dni,inmu.InmuId, inmu.Direccion,inmu.TipoLocal, inmu.PropId
+            FROM Pago p INNER JOIN Contrato c INNER JOIN inquilino inq INNER JOIN inmueble inmu INNER JOIN propietario propietario
             ON p.ContratoId=c.ContratoId AND c.InquiId=inq.InquiId AND c.InmuId=inmu.InmuId
             WHERE p.ContratoId=@id;";
             using(var command= new MySqlCommand(query,connetion)){
@@ -167,14 +168,15 @@ public class RepositorioPago : RepositorioBase,IRepositorioPago{
                             FechaPago=reader.GetDateTime(nameof(Pago.FechaPago)),
                             Importe=reader.GetDecimal(nameof(Pago.Importe)),
                             contrato=new Contrato{
-                                ContratoId=reader.GetInt32(nameof(Pago.ContratoId)),
+                                ContratoId=reader.GetInt32(nameof(Contrato.ContratoId)),
                                 InquiId=reader.GetInt32(nameof(Contrato.InquiId)),
                                 InmuId=reader.GetInt32(nameof(Contrato.InmuId))
                             },
                             inmueble=new Inmueble{
                                 InmuId=reader.GetInt32(nameof(Contrato.InmuId)),
                                 Direccion=reader.GetString(nameof(Inmueble.Direccion)),
-                                TipoLocal=reader.GetString(nameof(Inmueble.TipoLocal))
+                                TipoLocal=reader.GetString(nameof(Inmueble.TipoLocal)),
+                                PropId=reader.GetString(nameof(Propietario.PropId)),
                             },
                             inquilino=new Inquilino{
                                 InquiId=reader.GetInt32(nameof(Contrato.InquiId)),

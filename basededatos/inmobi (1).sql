@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2023 a las 02:24:33
+-- Tiempo de generación: 17-04-2023 a las 07:34:54
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -42,7 +42,8 @@ CREATE TABLE `contrato` (
 
 INSERT INTO `contrato` (`ContratoId`, `InmuId`, `InquiId`, `FechaInicio`, `FechaFinal`, `MontoAlquiler`) VALUES
 (3, 8, 7, '2023-04-06 22:40:00', '2023-04-21 22:40:00', 40000),
-(4, 9, 7, '2023-04-11 14:55:00', '2023-04-21 14:55:00', 300000);
+(4, 9, 8, '2023-04-11 14:55:00', '2023-04-21 14:55:00', 300000),
+(5, 10, 6, '2023-04-16 19:34:00', '2023-04-19 19:34:00', 1500);
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ CREATE TABLE `inmueble` (
 
 INSERT INTO `inmueble` (`InmuId`, `PropId`, `Direccion`, `UsoComercial`, `TipoLocal`, `CantidadAmbientes`, `Latitud`, `Longitud`, `Precio`) VALUES
 (8, 17, 'Barrio dos venados manzana j casa 2', 'Negocio', 'Comercio', 2, 4556, 33212, 150000),
-(9, 16, '500 Viviendas Norte casa 1', 'Garaje', 'Almacen', 1, 230, 5540, 300000);
+(9, 16, '500 Viviendas Norte casa 1', 'Garaje', 'Almacen', 1, 230, 5540, 300000),
+(10, 18, 'Barrio Universitario casa 15', 'Comercial', 'Local', 2, 352, 1121, 163221);
 
 -- --------------------------------------------------------
 
@@ -90,8 +92,9 @@ CREATE TABLE `inquilino` (
 --
 
 INSERT INTO `inquilino` (`InquiId`, `Nombre`, `Apellido`, `DNI`, `Domicilio`, `Telefono`) VALUES
-(6, 'Marito', 'Gonzales', '39855007', 'calle Elm 1500', '2664236544'),
-(7, 'Rodrigo', 'Azucar', '35124811', 'Barrio 3 venados manzana i casa 1', '2664153250');
+(6, 'Marito', 'Gonzales1', '39855007', 'calle Elm 1500', '2664236544'),
+(7, 'Rodrigo', 'Azucar', '35124811', 'Barrio 3 venados manzana i casa 1', '2664153250'),
+(8, 'Riquelme ', 'Rosales', '42113564', 'Barrio Candado casa 12', '2664789526');
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,7 @@ CREATE TABLE `pago` (
 --
 
 INSERT INTO `pago` (`PagoId`, `ContratoId`, `NumeroPago`, `FechaPago`, `Importe`) VALUES
-(1, 3, 2, '2023-04-11 21:31:07', '15200');
+(1, 3, 2, '2023-04-11 21:31:07', '15210');
 
 -- --------------------------------------------------------
 
@@ -135,7 +138,8 @@ CREATE TABLE `propietario` (
 
 INSERT INTO `propietario` (`PropId`, `Nombre`, `Apellido`, `Direccion`, `Telefono`, `Dni`) VALUES
 (16, 'Pepito', 'Elmes', 'Barrio Liberta 1432', '2664131342', '36145685'),
-(17, 'Maria', 'Algarrobo', 'Mitre 854', '2665789523', '40123486');
+(17, 'Maria', 'Algarrobo', 'Mitre 854', '2665789523', '40123486'),
+(18, 'Tony', 'Stark', 'calle lomada 132', '2664134562', '33445121');
 
 -- --------------------------------------------------------
 
@@ -158,8 +162,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`UsuarioId`, `Nombre`, `Apellido`, `Password`, `Correo`, `Rol`, `Avatar`) VALUES
-(4, 'User123', 'ElAdmin', 'YbEZizxRKoyT5YIUdfxkHhVDncuy0wiYDLHvKan95mM=', 'elAdmin@gmail.com', 1, '/Uploads\\avatar_dff6dfde-8350-4897-a738-6462074074b0.jpg'),
-(5, 'elEmpleado', 'probando', 'p/V0UYlRQ2r74WKivv2RUuuXKsdPJWaZnVJLUDsKk3c=', 'elEmpleado@gmail.com', 2, '/Uploads\\avatar_8a7926dd-7885-4015-a0f0-35b63b56a458.jpeg');
+(7, 'elAdmin2', 'Crack', 'rnV+gxtZCGow18aCB3Q29YOH3LifUokSPbayKVdIYQ8=', 'elAdmin2@gmail.com', 1, '/Uploads\\avatar_b22a148d-8fbf-4ff3-a8de-a40586f90adc.jpg'),
+(10, 'cadete2', 'cad', 'wVWgBHLChSd1demn0UPydU/n69UQxgDW3v0rfWivJpw=', 'cadete@gmail.com', 2, '/Uploads\\avatar_dc10c2ee-3991-49f7-8224-c3482c637e7f.jpg');
 
 --
 -- Índices para tablas volcadas
@@ -214,37 +218,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `ContratoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ContratoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  MODIFY `InmuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `InmuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `InquiId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `InquiId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `PagoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PagoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `propietario`
 --
 ALTER TABLE `propietario`
-  MODIFY `PropId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `PropId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `UsuarioId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

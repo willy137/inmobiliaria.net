@@ -36,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.Direccion)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { item.PropId }) |
-                @Html.ActionLink("Details", "Details", new { item.PropId}) |
-                @Html.ActionLink("Delete", "Delete", new { item.PropId })
+                <a asp-action="Edit" asp-route-PropId="@item.PropId"><img src="/img/editar.png" alt=""></a>
+                <a asp-action="Details" asp-route-PropId="@item.PropId"><img src="/img/detalle.png" alt=""></a>
+                <a asp-action="Delete" asp-route-PropId="@item.PropId"><img src="/img/elim.png" alt=""></a>
             </td>
         </tr>
 }

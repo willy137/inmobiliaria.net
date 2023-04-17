@@ -4,5 +4,5 @@ namespace mvc.Models
 	{
         IList<Propietario> BuscarNom(string nom);
         Propietario Obtener(int id);
-	}
+    }
 }

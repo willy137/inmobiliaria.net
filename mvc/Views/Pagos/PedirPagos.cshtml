@@ -1,12 +1,13 @@
 @model IEnumerable<mvc.Models.Pago>
-<link rel="stylesheet" href="./css/prop/index.css">
+<link rel="stylesheet" href="/css/pago/index.css">
 @{
     ViewData["Title"] = "Index";
+    var contra=ViewBag.contra;
 }
 
 <h1>Pagos</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Registrar Pago", "CreatePedir", new {contra.ContratoId}) 
 </p>
 <table class="table" id="tabla">
     <thead>
@@ -29,7 +30,7 @@
             <th >
                 @Html.DisplayNameFor(model => model.FechaPago)
             </th>
-            
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -48,10 +49,15 @@
                 @Html.DisplayFor(modelItem => item.inmueble.Direccion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.inmueble.Duenio.Apellido)
+                @Html.DisplayFor(modelItem => item.inmueble.Duenio.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FechaPago)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {item.PagoId }) |
+                @Html.ActionLink("Details", "Details", new {item.PagoId }) |
+                @Html.ActionLink("Delete", "Delete", new { item.PagoId})
             </td>
         </tr>
 }

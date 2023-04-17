@@ -47,15 +47,26 @@ namespace mvc.Controllers
         }
         [Authorize]
         // GET: Usuarios/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+        public ActionResult Details(int UsuarioId)
+        {  
+            try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                Usuario user=repoU.Obtener(UsuarioId);
+                return View(user);
+            }catch(Exception){
+                throw;
+            }
         }
-        [Authorize]
+
         // GET: Usuarios/Create
         public ActionResult Create()
         {
             try{
+            var claims =User.Claims;
+            string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+            ViewBag.Rol=Rol;                
                 return View();
             }catch(Exception ex){
                 throw;
@@ -95,6 +106,9 @@ namespace mvc.Controllers
                             usuario.ImgAvatar.CopyTo(stream);
                         }
 			        }
+                    if(usuario.Avatar==null || usuario.Avatar.Equals("")){
+                        usuario.Avatar="sin avatar";
+                    }
                     int res = repoU.Create(usuario);
                 return RedirectToAction(nameof(Index));
             }
@@ -105,16 +119,18 @@ namespace mvc.Controllers
         }
         [Authorize]
         // GET: Usuarios/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int UsuarioId)
         {
             try{
-                if(id==null || id==0){
-                    var claims =User.Claims;
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;                
+                if(UsuarioId==null || UsuarioId==0){
                     string correo = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
                     Usuario user1=repoU.ObtenerCorreo(correo);
                     return View(user1);
                 }
-                Usuario user=repoU.Obtener(id);
+                Usuario user=repoU.Obtener(UsuarioId);
                 return View(user);
             }catch(Exception ex){
                 throw;
@@ -125,40 +141,136 @@ namespace mvc.Controllers
         // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Usuario user)
+        {
+            try
+            {   
+                Usuario usuario=repoU.Obtener(Convert.ToInt32(user.UsuarioId));
+                user.Password=usuario.Password;
+                user.Avatar=usuario.Avatar;
+                repoU.Edit(user);
+                return View(user);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit2(int id, Usuario user)
+        {
+            try
+            {   
+                Usuario usuario=repoU.Obtener(Convert.ToInt32(user.UsuarioId));
+                if (usuario.Avatar != null && !string.IsNullOrEmpty(usuario.Avatar)){
+                        string wwwPath = environment1.WebRootPath;
+                        string path2 = Path.Combine(wwwPath, "Uploads");
+                        string img = Path.Combine(path2, Path.GetFileName(usuario.Avatar));
+                        if (System.IO.File.Exists(img))
+                        {
+                            System.IO.File.Delete(img);
+                        }
+                    }
+                if(user.ImgAvatar!=null){
+                        string wwwPath = environment1.WebRootPath;
+                        var nbreRnd = Guid.NewGuid();
+                        string path = Path.Combine(wwwPath, "Uploads");
+                        if (!Directory.Exists(path)){
+                            Directory.CreateDirectory(path);
+                        }
+                        string fileName = "avatar_" + nbreRnd + Path.GetExtension(user.ImgAvatar.FileName);
+                        string pathCompleto = Path.Combine(path, fileName);
+                        usuario.Avatar = Path.Combine("/Uploads", fileName);
+                        using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
+                        {
+                            user.ImgAvatar.CopyTo(stream);
+                        }
+                }else{
+                    usuario.Avatar="";
+                }
+                repoU.Edit(usuario);
+                return RedirectToAction(nameof(Edit),new{UsuarioId=usuario.UsuarioId});
+            }catch(Exception ex){
+                throw;
+            }
+        }
+
+        // POST: Usuarios/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit3(int id, Usuario user)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
+                Usuario usuario=repoU.Obtener(Convert.ToInt32(user.UsuarioId));
+                string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+						password: user.PasswordAnterior,
+						salt: System.Text.Encoding.ASCII.GetBytes(configuracion["Salt"]),
+						prf: KeyDerivationPrf.HMACSHA256,
+						iterationCount: 1000,
+						numBytesRequested: 256 / 8));
+                string contraNueva = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+						password: user.Password,
+						salt: System.Text.Encoding.ASCII.GetBytes(configuracion["Salt"]),
+						prf: KeyDerivationPrf.HMACSHA256,
+						iterationCount: 1000,
+						numBytesRequested: 256 / 8));        
+                if(hashed.Equals(usuario.Password)){
+                    usuario.Password=contraNueva;
+                    TempData["Valido"]="Contraseña cambiada con exito";
+                    repoU.Edit(usuario);
+                }else{
+                    TempData["Error"]="Contraseña Anterior Equivocada";
+                }
+                return RedirectToAction(nameof(Edit),new{UsuarioId=usuario.UsuarioId});
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw;
             }
         }
         [Authorize(Policy = "Administrador")]
         // GET: Usuarios/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int UsuarioId)
         {
-            return View();
+            try{
+            var claims =User.Claims;
+            string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+            ViewBag.Rol=Rol;
+            Usuario user=repoU.Obtener(UsuarioId);
+            return View(user);
+            }catch(Exception ex){
+                throw;
+            }
+
         }
 
         // POST: Usuarios/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Usuario user)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                Usuario usuario=repoU.Obtener(Convert.ToInt32(user.UsuarioId));
+                if (usuario.Avatar != null && !string.IsNullOrEmpty(usuario.Avatar)){
+                        string wwwPath = environment1.WebRootPath;
+                        string path2 = Path.Combine(wwwPath, "Uploads");
+                        string img = Path.Combine(path2, Path.GetFileName(usuario.Avatar));
+                        if (System.IO.File.Exists(img))
+                        {
+                            System.IO.File.Delete(img);
+                        }
+                    }
+                repoU.Delete(Convert.ToInt32(user.UsuarioId));
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw;
             }
         }
         [AllowAnonymous]

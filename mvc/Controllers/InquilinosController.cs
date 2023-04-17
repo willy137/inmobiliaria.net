@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,9 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 IList<Inquilino> inqui=repo.GetObtenerTodos();
                 return View(inqui);
             }catch(Exception ex){
@@ -32,14 +36,28 @@ namespace mvc.Controllers
         // GET: Inquilinos/Details/5
         public ActionResult Details(int InquiId)
         {
-            Inquilino inqui=repo.Obtener(InquiId);
-            return View(inqui);
+            try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                Inquilino inqui=repo.Obtener(InquiId);
+                return View(inqui);
+            }catch(Exception ex){
+                throw;
+            }
         }
         [Authorize]
         // GET: Inquilinos/Create
         public ActionResult Create()
         {
-            return View();
+            try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                return View();
+            }catch(Exception ex){
+                throw;
+            }
         }
 
         // POST: Inquilinos/Create
@@ -67,8 +85,12 @@ namespace mvc.Controllers
         // GET: Inquilinos/Edit/5
         public ActionResult Edit(int InquiId)
         {
-            Inquilino inq=repo.Obtener(InquiId);
-            return View(inq);
+            try{
+                Inquilino inq=repo.Obtener(InquiId);
+                return View(inq);
+            }catch(Exception ex){
+                throw;
+            }
         }
 
         // POST: Inquilinos/Edit/5
@@ -92,8 +114,11 @@ namespace mvc.Controllers
         public ActionResult Delete(int InquiId)
         {
             try{
-            Inquilino inq=repo.Obtener(InquiId);
-            return View(inq);
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                Inquilino inq=repo.Obtener(InquiId);
+                return View(inq);
             }catch(Exception ex){
                 throw;
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Index()
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 IList<Propietario> p=repoP.GetObtenerTodos();
                 return View(p);
             }catch(Exception ex){
@@ -33,17 +37,28 @@ namespace Inmobiliaria.Controllers
         // GET: Propietario/Details/5
         public ActionResult Details(int PropId)
         {
-            Propietario p=repoP.Obtener(PropId);
-            return View(p);
+            try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                Propietario p=repoP.Obtener(PropId);
+                 return View(p);
+            }catch(Exception ex){
+                throw;
+            }
+
         }
 
         [Authorize]
         // GET: Propietario/Details/5
         public ActionResult Pedir(Propietario prop)
         {
+            try{
             IList<Propietario> p=repoP.BuscarNom(prop.Nombre);
-            
             return View(p);
+            }catch(Exception){
+                throw;
+            }
         }
         [Authorize]
         // GET: Propietario/Create
@@ -51,6 +66,9 @@ namespace Inmobiliaria.Controllers
         {
             try
             {
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 return View();
             }
             catch (Exception ex)
@@ -83,8 +101,16 @@ namespace Inmobiliaria.Controllers
         // GET: Propietario/Edit/5
         public ActionResult Edit(int PropId)
         {
-            Propietario p=repoP.Obtener(PropId);
-            return View(p);
+            try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                Propietario p=repoP.Obtener(PropId);
+                return View(p);
+            }catch(Exception ex){
+                throw;
+            }
+
         }
 
         // POST: Propietario/Edit/5
@@ -108,8 +134,16 @@ namespace Inmobiliaria.Controllers
         // GET: Propietario/Delete/5
         public ActionResult Delete(int PropId)
         {
-            Propietario p=repoP.Obtener(PropId);
-            return View(p);
+            try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
+                Propietario p=repoP.Obtener(PropId);
+                return View(p);
+            }catch(Exception ex){
+                throw;
+            }
+
         }
 
         // POST: Propietario/Delete/5

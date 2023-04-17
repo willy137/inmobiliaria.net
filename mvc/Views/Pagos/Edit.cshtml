@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/css/pago/edit.css">
 @{
     ViewData["Title"] = "Edit";
+    var contrato=ViewBag.contra;
 }
 
 <h1>Modificar</h1>
@@ -9,7 +10,7 @@
 <h4>Pago</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -18,33 +19,39 @@
                 <span asp-validation-for="PagoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContratoId" class="control-label"></label>
-                <input asp-for="ContratoId" class="form-control" />
+                <label asp-for="ContratoId" class="control-label" hidden></label>
+                <input asp-for="ContratoId" class="form-control" hidden/>
                 <span asp-validation-for="ContratoId" class="text-danger"></span>
             </div>
             <div class="form-group">
+				<label class="control-label">Contrato</label>
+				<select class="form-control" name="ContratoId" id="contraId" onchange="cambiaId()">
+					{
+						<option value="@contrato.ContratoId">@(contrato.inquilino.Nombre+" ("+contrato.inmueble.Direccion.ToString()+")")</option>
+					}
+				</select>
+				<span asp-validation-for="ContratoId" class="text-danger"></span>
+			</div>
+            <div class="form-group">
                 <label asp-for="NumeroPago" class="control-label"></label>
-                <input asp-for="NumeroPago" class="form-control" />
+                <input asp-for="NumeroPago" class="form-control" required />
                 <span asp-validation-for="NumeroPago" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FechaPago" class="control-label"></label>
-                <input asp-for="FechaPago" class="form-control" />
+                <input asp-for="FechaPago" class="form-control" required/>
                 <span asp-validation-for="FechaPago" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Importe" class="control-label"></label>
-                <input asp-for="Importe" class="form-control" />
+                <input asp-for="Importe" class="form-control" required/>
                 <span asp-validation-for="Importe" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group" id="boton">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index">Volver</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

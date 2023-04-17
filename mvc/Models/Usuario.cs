@@ -19,6 +19,8 @@ public class Usuario{
 
     public string? Avatar{get;set;}
 
+    public string? PasswordAnterior{get;set;}
+
     public IFormFile? ImgAvatar{get;set;}
     public string RolNombre => Rol > 0 ? ((enRoles)Rol).ToString() : "";
 

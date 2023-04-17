@@ -24,12 +24,7 @@ body{
     font-family: 'DM Serif Display', serif;
     margin-bottom: 10px;
 }
-.form-group2>input{
-    background-color: #b041be;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid purple;
-}
+
 a{
     color: #31ccf3;
 }
@@ -41,8 +36,4 @@ h4{
 }
 #boton{
     margin-top: 10px;
-}
-#btn1>a{
-    text-decoration: none;
-    color:#ffff;
 }

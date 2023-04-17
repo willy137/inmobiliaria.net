@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Index()
         {
             try{
+            var claims =User.Claims;
+            string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+            ViewBag.Rol=Rol;
                 IList<Contrato> contratos= repoC.GetObtenerTodos();
                 return View(contratos);
             }catch(Exception ex){
@@ -41,6 +45,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Details(int ContratoId)
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 Contrato contrato= repoC.Obtener(ContratoId);
                 return View(contrato);
             }catch(Exception ex){
@@ -52,6 +59,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Create()
         {  
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 ViewBag.inquis=repoInqui.GetObtenerTodos();
                 ViewBag.Inmuebles=repoInmu.GetObtenerTodos();
                 return View();
@@ -82,6 +92,9 @@ namespace Inmobiliaria.Controllers
         {   
             try
             {
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 ViewBag.inmu=repoInmu.GetObtenerTodos();
                 ViewBag.inqui=repoInqui.GetObtenerTodos();
                 Contrato con=repoC.Obtener(ContratoId);
@@ -115,6 +128,9 @@ namespace Inmobiliaria.Controllers
         {
             try
             {
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 Contrato con=repoC.Obtener(ContratoId);
                 return View(con);
             }

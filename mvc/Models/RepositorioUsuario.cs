@@ -63,13 +63,14 @@ public class RepositorioUsuario : RepositorioBase,IRepositorioUsuario{
         int result;
         using (MySqlConnection connetion = new MySqlConnection(connectionString)){
             string query= @"UPDATE usuario
-             SET Nombre=@nom ,Apellido=@apell,Password=@contrase,Correo=@correo,Rol=@rol WHERE UsuarioId=@id";
+             SET Nombre=@nom ,Apellido=@apell,Password=@contrase,Correo=@correo,Rol=@rol,Avatar=@avatar WHERE UsuarioId=@id";
             using(var command= new MySqlCommand(query,connetion)){
                 command.Parameters.AddWithValue("@nom",user.Nombre);
                 command.Parameters.AddWithValue("@apell",user.Apellido);
                 command.Parameters.AddWithValue("@contrase",user.Password);
                 command.Parameters.AddWithValue("@correo",user.Correo);
                 command.Parameters.AddWithValue("@rol",user.Rol);
+                command.Parameters.AddWithValue("@avatar",user.Avatar);
                 command.Parameters.AddWithValue("@id",user.UsuarioId);
                 connetion.Open();
                 result= Convert.ToInt32(command.ExecuteScalar());

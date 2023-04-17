@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Index()
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 IList<Inmueble> inmus=repoI.GetObtenerTodos(); 
                 return View(inmus);
             }catch(Exception ex){
@@ -39,6 +43,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Details(int InmuId)
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 Inmueble inmu=repoI.Obtener(InmuId); 
                 return View(inmu);
             }catch(Exception ex){
@@ -50,6 +57,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Create()
         {   
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 ViewBag.Prop=repoP.GetObtenerTodos();
                 return View();
             }catch(Exception ex){
@@ -86,6 +96,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Edit(int InmuId)
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 ViewBag.prop=repoP.GetObtenerTodos();
                 Inmueble inmu=repoI.Obtener(InmuId);
                 return View(inmu);
@@ -116,6 +129,9 @@ namespace Inmobiliaria.Controllers
         public ActionResult Delete(int InmuId)
         {
             try{
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;
                 Inmueble inmu=repoI.Obtener(InmuId);
                 return View(inmu);
             }catch(Exception ex){
@@ -140,9 +156,9 @@ namespace Inmobiliaria.Controllers
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                throw;
             }
         }
     }

@@ -21,8 +21,8 @@
                 <span asp-validation-for="ContratoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InmuId" class="control-label"></label>
-                <input asp-for="InmuId" class="form-control"  readonly/>
+                <label asp-for="InmuId" class="control-label" hidden></label>
+                <input asp-for="InmuId" class="form-control" hidden  readonly/>
                 <span asp-validation-for="InmuId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -36,8 +36,8 @@
 				<span asp-validation-for="InmuId" class="text-danger"></span>
 			</div>
             <div class="form-group">
-                <label asp-for="InquiId" class="control-label"></label>
-                <input asp-for="InquiId" class="form-control" readonly />
+                <label asp-for="InquiId" class="control-label"hidden ></label>
+                <input asp-for="InquiId" class="form-control" hidden readonly />
                 <span asp-validation-for="InquiId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,27 +52,25 @@
 			</div>
             <div class="form-group">
                 <label asp-for="FechaInicio" class="control-label"></label>
-                <input asp-for="FechaInicio" class="form-control" />
+                <input asp-for="FechaInicio" class="form-control" required />
                 <span asp-validation-for="FechaInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FechaFinal" class="control-label"></label>
-                <input asp-for="FechaFinal" class="form-control" />
+                <input asp-for="FechaFinal" class="form-control" required/>
                 <span asp-validation-for="FechaFinal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MontoAlquiler" class="control-label"></label>
-                <input asp-for="MontoAlquiler" class="form-control" />
+                <input asp-for="MontoAlquiler" class="form-control" required/>
                 <span asp-validation-for="MontoAlquiler" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group" id="boton">
+                <input type="submit" value="Guardar" class="btn btn-primary" />|
+                    <a asp-action="Index">Volver</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

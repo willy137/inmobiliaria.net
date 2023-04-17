@@ -55,9 +55,9 @@
                 @(item.Duenio.Nombre+" "+item.Duenio.Apellido)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {item.InmuId}) |
-                @Html.ActionLink("Details", "Details", new { item.InmuId}) |
-                @Html.ActionLink("Delete", "Delete", new { item.InmuId })
+                <a asp-action="Edit" asp-route-InmuId="@item.InmuId"><img src="/img/editar.png" alt=""></a>
+                <a asp-action="Details" asp-route-InmuId="@item.InmuId"><img src="/img/detalle.png" alt=""></a>
+                <a asp-action="Delete" asp-route-InmuId="@item.InmuId"><img src="/img/elim.png" alt=""></a>
             </td>
         </tr>
 }

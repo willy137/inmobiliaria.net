@@ -6,7 +6,7 @@
     var propietarios= (List<Propietario>)ViewBag.Prop;
 }
 
-<h1>Create</h1>
+<h1>Registrar</h1>
 
 <h4>Inmueble</h4>
 <hr />
@@ -16,37 +16,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
+                <input asp-for="Direccion" class="form-control" required />
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UsoComercial" class="control-label"></label>
-                <input asp-for="UsoComercial" class="form-control" />
+                <input asp-for="UsoComercial" class="form-control" required />
                 <span asp-validation-for="UsoComercial" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoLocal" class="control-label"></label>
-                <input asp-for="TipoLocal" class="form-control" />
+                <input asp-for="TipoLocal" class="form-control"  required/>
                 <span asp-validation-for="TipoLocal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CantidadAmbientes" class="control-label"></label>
-                <input asp-for="CantidadAmbientes" class="form-control" />
+                <input asp-for="CantidadAmbientes" class="form-control" required/>
                 <span asp-validation-for="CantidadAmbientes" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Latitud" class="control-label"></label>
-                <input asp-for="Latitud" class="form-control" />
+                <input asp-for="Latitud" class="form-control"  required/>
                 <span asp-validation-for="Latitud" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Longitud" class="control-label"></label>
-                <input asp-for="Longitud" class="form-control" />
+                <input asp-for="Longitud" class="form-control" required/>
                 <span asp-validation-for="Longitud" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" type="number" />
+                <input asp-for="Precio" class="form-control" type="number" required />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
             <div class="form-group">

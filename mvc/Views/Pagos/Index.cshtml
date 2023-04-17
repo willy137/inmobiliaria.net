@@ -44,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.Importe)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {item.PagoId }) |
-                @Html.ActionLink("Details", "Details", new {item.PagoId }) |
-                @Html.ActionLink("Delete", "Delete", new { item.PagoId})
+                <a asp-action="Edit" asp-route-PagoId="@item.PagoId"><img src="/img/editar.png" alt=""></a>
+                <a asp-action="Details" asp-route-PagoId="@item.PagoId"><img src="/img/detalle.png" alt=""></a>
+                <a asp-action="Delete" asp-route-PagoId="@item.PagoId"><img src="/img/elim.png" alt=""></a>
             </td>
         </tr>
 }

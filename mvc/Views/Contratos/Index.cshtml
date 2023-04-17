@@ -42,9 +42,9 @@
                 @Html.DisplayFor(modelItem => item.FechaFinal)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {item.ContratoId}) |
-                @Html.ActionLink("Details", "Details", new { item.ContratoId}) |
-                @Html.ActionLink("Delete", "Delete", new { item.ContratoId })  |
+                <a asp-action="Edit" asp-route-ContratoId="@item.ContratoId"><img src="/img/editar.png" alt=""></a>
+                <a asp-action="Details" asp-route-ContratoId="@item.ContratoId"><img src="/img/detalle.png" alt=""></a>
+                <a asp-action="Delete" asp-route-ContratoId="@item.ContratoId"><img src="/img/elim.png" alt=""></a>
                 @Html.ActionLink("Pago", "PedirPagos","Pagos", new { item.ContratoId })
             </td>
         </tr>
