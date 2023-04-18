@@ -36,6 +36,14 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Restringido()
+    {
+            var claims =User.Claims;
+            string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+            ViewBag.Rol=Rol;
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

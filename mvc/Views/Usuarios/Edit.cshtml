@@ -37,6 +37,7 @@
             @if(rol=="Empleado"){
                 <div class="form-group">
                     <label asp-for="Rol" class="control-label"></label>
+                    <input asp-for="Rol" hidden>
                     <input asp-for="RolNombre" class="form-control"  readonly/>
                     <span asp-validation-for="RolNombre" class="text-danger"></span>
                 </div>

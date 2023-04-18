@@ -45,7 +45,7 @@ namespace mvc.Controllers
                 throw;
            }
         }
-        [Authorize]
+        [Authorize(Policy = "Administrador")]
         // GET: Usuarios/Details/5
         public ActionResult Details(int UsuarioId)
         {  
@@ -59,8 +59,9 @@ namespace mvc.Controllers
                 throw;
             }
         }
-        [Authorize]
+
         // GET: Usuarios/Create
+        [Authorize(Policy = "Administrador")]
         public ActionResult Create()
         {
             try{
@@ -144,7 +145,10 @@ namespace mvc.Controllers
         public ActionResult Edit(int id, Usuario user)
         {
             try
-            {   
+            {  
+                var claims =User.Claims;
+                string Rol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                ViewBag.Rol=Rol;        
                 Usuario usuario=repoU.Obtener(Convert.ToInt32(user.UsuarioId));
                 user.Password=usuario.Password;
                 user.Avatar=usuario.Avatar;
